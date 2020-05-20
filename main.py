@@ -1,75 +1,83 @@
 from colorama import init
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 from colors import colors
 
 init()
 
 
 class JuicyTag:
-    """ Main class"""
-    # Default settings
-    project = ""
-    creator = ""
-    email = "None"
-    color_inside = "CYAN"
-    color_frame = "CYAN"
-    date = ""
+    """ Main class """
     other = ""
 
-    def __init__(self, project, creator, color_inside=color_inside,
-                 color_frame=color_frame, date=None, email=None,):
+    def __init__(self, project, creator, color_inside="CYAN", color_frame="CYAN", date=None, email=None, ):
+
         # Let's make it juicy
         print(Style.BRIGHT)
-        if (len(creator) <= 50) and (color_inside.upper() in colors) and (color_frame.upper() in colors):
+        if (len(project) <= 30) and (len(creator) <= 40) and (color_inside.upper() in colors) \
+                and (color_frame.upper() in colors):
+            self.project = project
             self.creator = creator
             self.color_inside = color_inside
             self.color_frame = color_frame
             self.date = date
             self.email = email
 
-            if color_inside.upper() == "RED":
+            if self.color_inside.upper() == "RED":
                 color_inside = Fore.RED
-            elif color_inside.upper() == "MAGENTA":
+            elif self.color_inside.upper() == "MAGENTA":
                 color_inside = Fore.MAGENTA
-            elif color_inside.upper() == "BLUE":
+            elif self.color_inside.upper() == "BLUE":
                 color_inside = Fore.BLUE
-            elif color_inside.upper() == "YELLOW":
+            elif self.color_inside.upper() == "YELLOW":
                 color_inside = Fore.YELLOW
-            elif color_inside.upper() == "GREEN":
+            elif self.color_inside.upper() == "GREEN":
                 color_inside = Fore.GREEN
-            elif color_inside.upper() == "CYAN":
+            elif self.color_inside.upper() == "CYAN":
                 color_inside = Fore.CYAN
-            elif color_inside.upper() == "BLACK":
+            elif self.color_inside.upper() == "BLACK":
                 color_inside = Fore.BLACK
-            elif color_inside.upper() == "WHITE":
+            elif self.color_inside.upper() == "WHITE":
                 color_inside = Fore.WHITE
 
-            if color_frame.upper() == "RED":
+            if self.color_frame.upper() == "RED":
                 color_frame = Fore.RED
-            elif color_frame.upper() == "MAGENTA":
+            elif self.color_frame.upper() == "MAGENTA":
                 color_frame = Fore.MAGENTA
-            elif color_frame.upper() == "BLUE":
+            elif self.color_frame.upper() == "BLUE":
                 color_frame = Fore.BLUE
-            elif color_frame.upper() == "YELLOW":
+            elif self.color_frame.upper() == "YELLOW":
                 color_frame = Fore.YELLOW
-            elif color_frame.upper() == "GREEN":
+            elif self.color_frame.upper() == "GREEN":
                 color_frame = Fore.GREEN
-            elif color_frame.upper() == "CYAN":
+            elif self.color_frame.upper() == "CYAN":
                 color_frame = Fore.CYAN
-            elif color_frame.upper() == "BLACK":
+            elif self.color_frame.upper() == "BLACK":
                 color_frame = Fore.BLACK
-            elif color_frame.upper() == "WHITE":
+            elif self.color_frame.upper() == "WHITE":
                 color_frame = Fore.WHITE
 
-           #  longest_object = max(key=len)
+            frame_length: int = 16 if len(self.creator) <= 10 else 25
 
-            print(color_frame + "* "*(len(self.creator) + 15))
-            print(color_frame + "*     " + str(((21 + len(self.creator))
-                                               // len(project))) + project + "     *")
-            print(color_frame + "*     Created by " + self.creator + "     *")
-            print('*     the1337pocan@mail.ru')
-            print('*     May 16 2020')
+            # Printing the tag
+            print(color_frame + "* " * frame_length)
+            print(color_frame + "*     " + color_inside + self.project + color_frame +
+                  ' ' * (frame_length * 2 - 8 - len(self.project)) + '*')
+            if len(self.creator) <= 20:
+                print(color_frame + "*     " + color_inside + f"Created by {self.creator}" + color_frame +
+                      ' ' * (frame_length * 2 - 19 - len(self.creator)) + '*')
+            else:
+                print(color_frame + "*     " + color_inside + "          Created by" + color_frame +
+                      "                      *\n" + color_frame + '*' +
+                      color_inside + f"     {self.creator}" + ' ' * (frame_length*2 - 8 - len(self.creator)) +
+                      color_frame + '*')
 
+            if self.email is not None:
+                print(color_frame + "*     " + color_inside + self.email + color_frame +
+                      ' ' * (frame_length * 2 - 8 - len(self.email)) + '*')
+            if self.date is not None:
+                print(color_frame + "*     " + color_inside + self.date + color_frame +
+                      ' ' * (frame_length * 2 - 8 - len(self.date)) + '*')
+            print(color_frame + "* " * frame_length)
             print(Style.RESET_ALL)
 
         else:
@@ -86,17 +94,5 @@ class JuicyTag:
         pass
 
 
-class Info:
-    """
-    Displays information about author
-    """
-    def __init__(self):
-        print("Made for fun!")
-
-
-test = JuicyTag("WTW Bot3", "Chernishov Daniil", "rEd","rEd")
-
-test1 = JuicyTag("Something", "vova", 'cYAn',"CyaN")
-
-
-
+test = JuicyTag("Juicy Tag b1.0", "Chernishov Daniil", "cyan", "red", "May 20 2020")
+test1 = JuicyTag("Juicy Tag b1.0", "Chernishoff", 'magenta', "yellow")
